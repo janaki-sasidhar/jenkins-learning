@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+        string(name: 'repositoryName', defaultValue: 'janakisasidhar1', description: 'Docker repository name')
+    }    
     stages {
         stage('Clone Git Repository') {
             steps {
@@ -27,9 +30,7 @@ pipeline {
         }
 
         stage('Push Docker Image') {
-            parameters {
-                string(name: 'repositoryName', defaultValue: 'janakisasidhar1', description: 'Docker repository name')
-            }
+
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     // Create new variable for username, called repositoryName 
