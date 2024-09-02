@@ -15,9 +15,9 @@ pipeline {
             steps {
                 // Docker build
                 sh 'echo "Building the Docker image"'
-                sh 'docker build -t jenkins-learning .'
+                sh '/usr/local/bin/docker build -t jenkins-learning .'
                 // Verify the image
-                sh 'docker images'
+                sh '/usr/local/bin/docker images'
             }
         }
         stage('Run Tests') {
