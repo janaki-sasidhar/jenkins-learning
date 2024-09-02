@@ -30,7 +30,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh '/usr/local/bin/docker login -u $USERNAME -p $PASSWORD'
-                    sh '/usr/local/bin/docker tag jenkins-learning $USERNAME/jenkins-learning'
+                    sh '/usr/local/bin/docker tag jenkins-learning janakisasidhar1/jenkins-learning'
                     sh '/usr/local/bin/docker push $USERNAME/jenkins-learning'
                 }
             }
