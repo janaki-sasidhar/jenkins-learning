@@ -27,11 +27,15 @@ pipeline {
         }
 
         stage('Push Docker Image') {
+            parameters {
+                string(name: 'repositoryName', defaultValue: 'janakisasidhar1', description: 'Docker repository name')
+            }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    // Create new variable for username, called repositoryName 
                     sh '/usr/local/bin/docker login -u $USERNAME -p $PASSWORD'
-                    sh '/usr/local/bin/docker tag jenkins-learning janakisasidhar1/jenkins-learning'
-                    sh '/usr/local/bin/docker push $USERNAME/jenkins-learning'
+                    sh '/usr/local/bin/docker tag jenkins-learning $repositoryName/jenkins-learning'
+                    sh '/usr/local/bin/docker push $repositoryName/jenkins-learning'
                 }
             }
         }
