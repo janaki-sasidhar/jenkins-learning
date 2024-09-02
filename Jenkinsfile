@@ -17,12 +17,22 @@ pipeline {
                 sh 'echo "Building the Docker image"'
                 sh '/usr/local/bin/docker build -t jenkins-learning .'
                 // Verify the image
-                sh '/usr/local/bin/docker images'
+                sh '/usr/local/bin/docker image ls jenkins-learning:latest'
             }
         }
         stage('Run Tests') {
             steps {
                 sh 'echo "Running tests"'
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh '/usr/local/bin/docker login -u $USERNAME -p $PASSWORD'
+                    sh '/usr/local/bin/docker tag jenkins-learning $USERNAME/jenkins-learning'
+                    sh '/usr/local/bin/docker push $USERNAME/jenkins-learning'
+                }
             }
         }
     }
