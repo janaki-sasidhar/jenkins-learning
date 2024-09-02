@@ -46,7 +46,7 @@ pipeline {
             steps {
                 sh '/usr/local/bin/docker stop jenkins-learning || true'
                 sh '/usr/local/bin/docker rm -f jenkins-learning || true'
-                sh '/usr/local/bin/docker run -d -p 5001:5000 janakisasidhar1/jenkins-learning:latest'
+                sh '/usr/local/bin/docker run -d -p 5001:5000 --name jenkins-learning janakisasidhar1/jenkins-learning:latest 
             }
         }
     }
